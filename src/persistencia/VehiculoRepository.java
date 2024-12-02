@@ -1,6 +1,7 @@
 
 package persistencia;
 
+import excepciones.PersistenciaException;
 import java.util.List;
 import java.util.Optional;
 import model.Vehiculo;
@@ -18,10 +19,13 @@ public class VehiculoRepository implements Repository<Vehiculo>{
     @Override
     public void add(Vehiculo vehiculo) {
         boolean existeEnPersistencia = vehiculos.stream().anyMatch(v -> v.getId() == vehiculo.getId());
-        if(existeEnPersistencia){return;}
-       
-        this.vehiculos.add(vehiculo);
-        this.persistencia.guardar(vehiculos);
+        if(existeEnPersistencia){
+            throw new PersistenciaException("Error de persistencia: El archivo se encontraba cargado anteriormente");
+        } else {
+            this.vehiculos.add(vehiculo);
+            this.persistencia.guardar(vehiculos);
+        }
+      
     }
 
     @Override

@@ -56,6 +56,12 @@ public class Reserva implements Serializable{
         return idReserva;
     }
 
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
+    }
+    
+    
+
     @Override
     public String toString() {
         return "Reserva{" + "idReserva=" + idReserva + ", cliente=" + cliente + ", vehiculos=" + vehiculos + ", total=" + total + '}';

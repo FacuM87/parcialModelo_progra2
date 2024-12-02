@@ -11,7 +11,7 @@ import java.util.List;
 
 public class GestorPersistencia<T> {
 
-    private String archivo;
+    private final String archivo;
 
     public GestorPersistencia(String archivo) {
         this.archivo = archivo;
@@ -21,7 +21,7 @@ public class GestorPersistencia<T> {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.archivo+".bin"))) {
             oos.writeObject(lista);
         } catch (IOException e) {
-            System.out.println("Error al guardar datos: "+e.getMessage());
+            throw new RuntimeException("Error al cargar datos: " + e.getMessage(), e);
         }
     }
 
@@ -31,8 +31,7 @@ public class GestorPersistencia<T> {
         } catch (FileNotFoundException e) {
             return new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Error al cargar datos: "+e.getMessage());
-            return null;
+            throw new RuntimeException("Error al cargar datos: " + e.getMessage(), e);      
         }
     }
 }

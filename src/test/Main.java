@@ -47,12 +47,22 @@ public class Main {
 
             System.out.println(ga.filtrarVehiculos(v -> v.getId() == 2));
 
+            // descuento 10% sobre Audis
             ga.aplicarDescuento(v -> {
                 if (v.getModelo().equals("Audi A6")) {
                     return v.getPrecioBasePorDia() * 0.9; 
                 }
                 return v.getPrecioBasePorDia();
             });
+            
+            // descuento 30% sobre motos
+            ga.aplicarDescuento(v->{
+                if(v instanceof VehiculoMoto a){
+                    a.setPrecioBasePorDia(a.getPrecioBasePorDia()*0.7);
+                }
+                return v.getPrecioBasePorDia();
+            });
+            
             
             System.out.println(ga.traerVehiculos() + "\n");
 

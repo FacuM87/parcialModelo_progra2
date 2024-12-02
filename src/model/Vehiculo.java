@@ -4,8 +4,7 @@ import java.io.Serializable;
 
 public abstract class Vehiculo implements Serializable {
 
-    private static final long serialVersionUID = 1L; // ¿esto se lo aplicamos siempre a todas las clases y subclases que implementen Serializable?
-
+    private static final long serialVersionUID = 1L; 
     private static int contadorId = 1;
     protected int id;
     protected String modelo;

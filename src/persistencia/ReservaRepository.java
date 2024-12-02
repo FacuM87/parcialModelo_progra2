@@ -1,6 +1,7 @@
 
 package persistencia;
 
+import excepciones.PersistenciaException;
 import java.util.List;
 import java.util.Optional;
 import model.Reserva;
@@ -19,10 +20,13 @@ public class ReservaRepository implements Repository<Reserva>{
     public void add(Reserva reserva) {
         if(reserva!=null){
             boolean existEnPersistencia = reservas.stream().anyMatch(r -> r.getIdReserva() == reserva.getIdReserva());
-            if (existEnPersistencia){return;}
+            if (existEnPersistencia){
+                throw new PersistenciaException("El archivo se encontraba cargado anteriormente");
+            } else {    
+                this.reservas.add(reserva);
+                this.persistencia.guardar(reservas);
+            }
             
-            this.reservas.add(reserva);
-            this.persistencia.guardar(reservas);
         } else {
             throw new IllegalArgumentException("No se pueden incorporar elementos nulos a reservas");
         }
