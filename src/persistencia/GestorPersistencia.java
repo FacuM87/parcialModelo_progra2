@@ -1,5 +1,6 @@
 package persistencia;
 
+import excepciones.PersistenciaException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,7 +22,7 @@ public class GestorPersistencia<T> {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(this.archivo+".bin"))) {
             oos.writeObject(lista);
         } catch (IOException e) {
-            throw new RuntimeException("Error al cargar datos: " + e.getMessage(), e);
+            throw new PersistenciaException("Error al cargar datos: " + e.getMessage());
         }
     }
 
@@ -31,7 +32,7 @@ public class GestorPersistencia<T> {
         } catch (FileNotFoundException e) {
             return new ArrayList<>();
         } catch (IOException | ClassNotFoundException e) {
-            throw new RuntimeException("Error al cargar datos: " + e.getMessage(), e);      
+            throw new PersistenciaException("Error al cargar datos: " + e.getMessage());      
         }
     }
 }
